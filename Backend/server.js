@@ -3,12 +3,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const userRoute = require("./routes/userRoute");
 const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
 const PORT =process.env.PORT || 5005;
+
 
 // Middleware
 
