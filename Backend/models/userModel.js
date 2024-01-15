@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
+const bcrypt = require("bcryptjs");
+
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -44,6 +46,13 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
 });
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model("User", userSchema);
 
