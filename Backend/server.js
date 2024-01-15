@@ -8,7 +8,7 @@ const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
-const PORT =process.env.PORT || 5005;
+const PORT =process.env.PORT || 9000;
 
 // Middleware
 
