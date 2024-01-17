@@ -45,6 +45,9 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+  passwordChangedAt: {
+    type: Date,
+  },
 });
 
 userSchema.pre("save", async function (next) {
@@ -56,6 +59,19 @@ userSchema.pre("save", async function (next) {
 
   next();
 });
+
+userSchema.methods.changePasswordAfter = function (jwtTimeSTMP) {
+  if (this.passwordChangedAt) {
+    const changeTimeStamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return jwtTimeSTMP < changeTimeStamp;
+  }
+
+  // false means password not changed
+  return false;
+};
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
