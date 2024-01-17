@@ -1,30 +1,18 @@
-const User = require("./../models/userModel");
 const jwt = require("jsonwebtoken");
+const User = require("./../models/userModel");
+const { promisify } = require("util");
 
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 
 const signToken = (id) => {
-  return (
-    jwt.sign({ id: id }),
-    process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    }
-  );
+  return jwt.sign({ id: id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
-
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  res.cookie("jwt", token, cookieOptions);
 
   res.status(statusCode).json({
     status: "success",
@@ -38,7 +26,7 @@ const createSendToken = (user, statusCode, res) => {
 exports.signUp = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
 
-  createSendToken(newUser, 200, res);
+  createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -61,3 +49,49 @@ exports.login = catchAsync(async (req, res, next) => {
     token,
   });
 });
+
+exports.protect = catchAsync(async (req, res, next) => {
+  // check token
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+
+  if (!token) {
+    return next(new AppError("You are not logged in", 400));
+  }
+
+  // verify token
+  const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  // check user exist
+  const currentUser = await User.findById(decode.id);
+
+  if (!currentUser) {
+    return next(new AppError("No user belongs to this token", 401));
+  }
+
+  // check if user changed password after the token issued
+  if (currentUser.changePasswordAfter(decode.iat)) {
+    return next(new AppError("User recently changed password", 401));
+  }
+
+  req.user = currentUser;
+
+  next();
+});
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You have no permissions to perform this!", 401)
+      );
+    }
+    next();
+  };
+  next();
+};

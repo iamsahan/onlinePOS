@@ -45,7 +45,33 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+  passwordChangedAt: {
+    type: Date,
+  },
 });
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password, 12);
+
+  this.passwordConfirm = undefined;
+
+  next();
+});
+
+userSchema.methods.changePasswordAfter = function (jwtTimeSTMP) {
+  if (this.passwordChangedAt) {
+    const changeTimeStamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return jwtTimeSTMP < changeTimeStamp;
+  }
+
+  // false means password not changed
+  return false;
+};
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
