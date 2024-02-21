@@ -9,10 +9,11 @@ const categoryRoute = require("./routes/categoryRoute");
 const itemRoute = require("./routes/itemRoute");
 
 const errorHandler = require("./middleware/errorMiddleware");
+const posRoute = require("./routes/posRoute");
 
 const app = express();
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 8090;
 
 dotenv.config({ path: "./config.env" });
 
@@ -24,9 +25,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes middlewares
+
+app.use("/", userRoute);
+app.use("/", posRoute);
+
 app.use("/api/users", userRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/items", itemRoute);
+
 
 // Routes
 app.get("/", (req, res) => {
