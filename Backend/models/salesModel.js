@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const posTransactionSchema = new mongoose.Schema({
+const salesSchema = new mongoose.Schema({
    
         transactionID : {
             type : String,
@@ -65,5 +65,5 @@ const posTransactionSchema = new mongoose.Schema({
     }
 );
 
-const POS = mongoose.model("POS", posTransactionSchema);
-module.exports = POS;
+const Sales = mongoose.model("Sales", salesSchema);
+module.exports = Sales;

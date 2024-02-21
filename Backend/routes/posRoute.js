@@ -1,10 +1,11 @@
 const express  = require('express');
-const {newtransactionController, getoneTransaction, deleteTransaction} = require('../controllers/postransactionController');
+const {newsalesController, getoneSale, deleteSale, updateSale } = require('../controllers/salesController');
 
 const router = express.Router();
 
-router.post("/trans", newtransactionController);
-router.get("/getpos/:tid", getoneTransaction);
-router.get("/delpos/:objid", deleteTransaction);
+router.post("/trans", newsalesController);
+router.get("/getpos/:tid", getoneSale);
+router.get("/delpos/:objid", deleteSale);
+router.post("/update", updateSale);
 
 module.exports = router;

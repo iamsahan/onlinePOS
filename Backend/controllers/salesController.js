@@ -1,9 +1,9 @@
-const posModel = require('../models/postransactionModel');
+const salesModel = require('../models/salesModel');
 const mongoose = require('mongoose');
 
-const newtransactionController = async(req, res) => {
+const newsalesController = async(req, res) => {
     try {
-        const transaction = new posModel(req.body);
+        const transaction = new salesModel(req.body);
         await transaction.save();
 
         return res.status(201).send({
@@ -22,9 +22,9 @@ const newtransactionController = async(req, res) => {
     }
 };
 
-const getoneTransaction = async(req,res) => {
+const getoneSale = async(req,res) => {
     try {
-        const transaction = await posModel.findOne({transactionID:req.params.tid});
+        const transaction = await salesModel.findOne({transactionID : req.params.tid});
 
         if(!transaction) {
             return res.status(404).send({
@@ -49,9 +49,9 @@ const getoneTransaction = async(req,res) => {
     }
 };
 
-const deleteTransaction = async (req, res) => {
+const deleteSale = async (req, res) => {
     try {
-        await posModel.findByIdAndDelete(req.params.objid);
+        await salesModel.findByIdAndDelete(req.params.objid);
         res.status(200).send({
             success: true,
             message: "Transaction deleted successfully"
@@ -66,4 +66,24 @@ const deleteTransaction = async (req, res) => {
     }
 };
 
-module.exports = { newtransactionController, getoneTransaction, deleteTransaction };
+const updateSale = async (req, res) => {
+    try {
+        const filter = { name: 'Jean-Luc Picard' };
+        const update = { age: 59 };
+
+        await salesModel.findOneAndUpdate(filter, update);
+        res.status(200).send({
+            success: true,
+            message: "Transaction updated successfully"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in Delete API!",
+            error: error.message
+        });
+    }
+};
+
+module.exports = { newsalesController, getoneSale, deleteSale, updateSale };
