@@ -5,10 +5,20 @@ const paymentMetodSchema = new mongoose.Schema({
     payID : {
         type : String,
         unique : true,
-        required : [true, "Transaction ID is Required!"],
+        required : [true, "Payment ID is Required!"],
     },
 
-    timestamp : {
+    managerID : {
+        type : String,
+        required : [true, "Payer Id is Reqired!"],
+    },
+
+    reason : {
+        type : String,
+        required : [true, "Payment Reason is Required!"]
+    },
+
+    date : {
         type : Date,
         required : [true, "Transaction Date is Required!"],
         default : Date.now()
@@ -37,8 +47,11 @@ const paymentMetodSchema = new mongoose.Schema({
 
     status : {
         type : String,
-        default : "pending",
+        default : "completed",
         required : [true, "Transaction Status is Reqired"],
-        enum : ["completed", "returned", "pending"]
+        enum : ["completed", "cancelled", "pending"]
     }
+}, 
+{
+    timestamps : true
 })
