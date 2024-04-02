@@ -25,7 +25,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes middlewares
-
 app.use("/", userRoute);
 app.use("/", posRoute);
 
@@ -44,7 +43,7 @@ app.use(errorHandler);
 
 // connect to DB and start server
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect("mongodb+srv://iamsahan:sew123@inventory.axqereu.mongodb.net/?retryWrites=true&w=majority&appName=inventory")
   .then(() => {
     console.log("DB Connection Successful!");
   })
