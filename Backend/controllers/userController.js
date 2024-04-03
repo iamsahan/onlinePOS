@@ -1,50 +1,66 @@
-const asyncHandler = require("express-async-handler") ;
 const User = require("../models/userModel");
 
-const registerUser = asyncHandler( async (req, res) => {
-   
-    const {name , email , password} = req.body;
+const catchAsync = require('./../utils/catchAsync');
 
-    //validation
-    if(!name || !email || !password){
-        res.status(400);
-        throw new Error("Please fill all the fields")
+const AppError = require('./../utils/appError');
+
+const factory = require('./factoryHandler');
+
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) {
+      newObj[el] = obj[el];
     }
-    if(password.length < 6){
-        res.status(400)
-        throw new Error("Password must be at least 6 characters")
-    }
+  });
+  return newObj;
+};
 
-    //check if user email already exists
-    const userExists = await User.findOne({ email});
+exports.updateMe = catchAsync(async (req, res, next) => {
+  // 1. create error if user POSTs password data
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(new AppError('Cannot update passwords in this route!', 400));
+  }
 
-    if (userExists){
-        res.status(400);
-        throw new Error("email is already been registered");
-    }
+  //2.Filtered out unwanted fields
+  const filterBody = filterObj(req.body, 'firstName', 'lastName');
 
-    //create new user
-    const user = await User.create({ name , email, password});
+  // 3. update the user document
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, filterBody, {
+    new: true,
+    runValidators: true,
+  });
 
-    if (user){
-        const{_id,name,email, photo, phone, bio} = user 
-        res.status(201).json({
-            _id ,
-            name ,
-            email ,
-            password ,
-            photo  ,
-            phone ,
-            bio,
-            
-        })
-    }
-        else{
-            res.status(400);
-            throw new Error("Invalid user data");
-        }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: updatedUser,
+    },
+  });
 });
 
-module.exports = {
-    registerUser,
-}
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(
+    req.user.id,
+    { active: false },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
+exports.getAllUsers = factory.getAll(User);
+
+exports.getUser = factory.getOne(User);
+
+exports.createUser = factory.createOne(User);
+
+exports.updateUser = factory.updateOne(User); //Do not update passwords with this!
+
+exports.deleteUser = factory.deleteOne(User);
