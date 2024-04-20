@@ -1,0 +1,90 @@
+
+.list-header {
+    display: flex;
+    margin: 2rem 0;
+    justify-content: space-between;
+}
+
+.list-header h2 {
+    color: #526d82;
+
+}
+
+.list-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow:scroll;
+    height: 390px;
+}
+
+.container {
+    background-color:  #dde6ed;
+    border-radius: 6px;
+    height: 130px;
+    position: relative;
+    width: 290px;
+    cursor: pointer;
+  }
+  
+  .container .image {
+    height: 100px;
+    left: 12px;
+    position: absolute;
+    top: 13px;
+    width: 93px;
+  }
+  
+  .container .text-wrapper {
+    color: #171a1f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    left: 129px;
+    letter-spacing: 0;
+    position: absolute;
+    top: 5px;
+  }
+  
+  .container .category-soapunit {
+    color: #242425;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 129px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 55px;
+    width: 155px;
+  }
+  
+  .detail_cont {
+    position: absolute;
+    z-index: 1;
+    align-items: center;
+    text-align: center;
+    top: 250px;
+    left: 400px;
+    width: 380px;
+    height: 380px;
+    padding: auto;
+    background: #dde6ed;
+    border-radius: 20px;
+  }
+
+  .img_box img{
+    width: 100px;
+    height: 100px;
+    
+  }
+
+  .detail_info button {
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .hide {
+    display: none;
+  }
