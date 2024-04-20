@@ -10,17 +10,17 @@ router.route("/signup").post(authController.signUp);
 
 router.route("/login").post(authController.login);
 
-router.route('/forgotPassword').post(authController.forgotPassword);
+// router.route("/forgotPassword").post(authController.forgotPassword);
 
-router.route('/resetPassword/:otp').patch(authController.resetPassword);
+// router.route("/resetPassword/:otp").patch(authController.resetPassword);
 
-router.use(authController.protect);
+// router.use(authController.protect);
 
-router.route('/updateMyPassword').patch(authController.updatePassword);
+// router.route("/updateMyPassword").patch(authController.updatePassword);
 
-router.route('/updateMe').patch(userController.updateMe);
+// router.route("/updateMe").patch(userController.updateMe);
 
-router.route('/deleteMe').patch(userController.deleteMe);
+// router.route("/deleteMe").patch(userController.deleteMe);
 
 router.use(authController.restrictTo('admin'));
 

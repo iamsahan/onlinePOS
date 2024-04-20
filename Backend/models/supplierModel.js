@@ -21,13 +21,12 @@ const userSchema = mongoose.Schema({
     photo:{
         type: String,
         required :[true, "please add a Photo"],
-
         default: 'no-photo.jpg'
 
     },
     phone:{
         type: String,
-        default :"+94xxx"
+        default :"+94xxxxxxxxx"
     },
 }, {
     timestamps: true,
