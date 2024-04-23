@@ -22,6 +22,16 @@ const newsalesController = async(req, res) => {
     }
 };
 
+// Route to get all sales records
+const getallSale = async (req, res) => {
+    try {
+      const sales = await salesModel.find();
+      res.json(sales);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
 const getoneSale = async(req,res) => {
     try {
         const transaction = await salesModel.findOne({transactionID : req.params.tid});
@@ -86,4 +96,4 @@ const updateSale = async (req, res) => {
     }
 };
 
-module.exports = { newsalesController, getoneSale, deleteSale, updateSale };
+module.exports = { newsalesController, getoneSale, deleteSale, updateSale, getallSale};

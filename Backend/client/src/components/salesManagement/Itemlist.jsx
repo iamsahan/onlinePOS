@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../styles/itemlist.css";
+import "../../styles/itemlist.css";
 import { itemData } from './Data';
 import { BiSearch } from 'react-icons/bi';
 

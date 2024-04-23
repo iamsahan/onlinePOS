@@ -1,6 +1,6 @@
 import React from 'react'
 import {BiHome, BiBookAlt, BiMessage, BiTask, BiStats, BiSolidReport} from 'react-icons/bi'
-import "../styles/sidebar.css"
+import "../../styles/sidebar.css"
 import { useState } from "react";
 
 const Sidebar = () => {

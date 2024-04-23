@@ -1,6 +1,6 @@
 import { BiLogoHtml5, BiBuilding } from "react-icons/bi";
-import img1 from "../assets/baby.jpg"
-import img2 from "../assets/b2.jpeg"
+import img1 from "../../assets/baby.jpg"
+import img2 from "../../assets/b2.jpeg"
 
 export const cardData = [
     {

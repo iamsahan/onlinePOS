@@ -1,5 +1,5 @@
 import React from 'react'
-import "../styles/profile.css"
+import "../../styles/profile.css"
 import Itemlist from './Itemlist';
 
 const Profile = ({ selectedItems, removeItemFromProfile, subtotal }) => {

@@ -13,9 +13,12 @@ const posRoute = require("./routes/posRoute");
 
 const app = express();
 
-const PORT = process.env.PORT || 8090;
+const PORT = process.env.PORT || 8070;
 
 dotenv.config({ path: "./config.env" });
+
+
+app.use(cors()) // Use this after the variable declaration
 
 // Middleware
 
@@ -25,12 +28,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes middlewares
-app.use("/", userRoute);
-app.use("/", posRoute);
+// app.use("/", userRoute);
+app.use("/api/pos", posRoute);
 
-app.use("/api/users", userRoute);
-app.use("/api/category", categoryRoute);
-app.use("/api/items", itemRoute);
+// app.use("/api/users", userRoute);
+// app.use("/api/category", categoryRoute);
+// app.use("/api/items", itemRoute);
 
 
 // Routes
