@@ -24,9 +24,9 @@ const newsupplierController = async(req, res) => {
 
 const getoneSupplier = async(req,res) => {
     try {
-        const transaction = await supplierModel.findOne({transactionID : req.params.tid});
+        const supplier = await supplierModel.findOne({_id : req.params.sid});
 
-        if(!transaction) {
+        if(!supplier) {
             return res.status(404).send({
                 success : false,
                 message : "Transaction Not Found!",
@@ -36,7 +36,7 @@ const getoneSupplier = async(req,res) => {
         res.status(200).json({
             status : "success",
             data : {
-                transaction
+                supplier
             }
         })
     } catch (error) {
@@ -49,9 +49,32 @@ const getoneSupplier = async(req,res) => {
     }
 };
 
+const getSupplierById = async (req, res) => {
+    try {
+        const supplier = await supplierModel.findById(req.params.sid);
+        if (!supplier) {
+            return res.status(404).json({ success: false, message: 'Supplier not found' });
+        }
+        res.status(200).json({ success: true, data: supplier });
+    } catch (error) {
+        console.error('Error fetching supplier:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+const getAllSuppliers = async (req, res) => {
+    try {
+      const suppliers = await supplierModel.find();
+      res.status(200).json({ data: suppliers });
+    } catch (error) {
+      console.error('Error getting suppliers:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };
+
 const deleteSupplier = async (req, res) => {
     try {
-        await supplierModel.findByIdAndDelete(req.params.objid);
+        await supplierModel.findByIdAndDelete(req.params.sid);
         res.status(200).send({
             success: true,
             message: "Transaction deleted successfully"
@@ -66,24 +89,32 @@ const deleteSupplier = async (req, res) => {
     }
 };
 
+
 const updateSupplier = async (req, res) => {
     try {
-        const filter = { name: 'Jean-Luc Picard' };
-        const update = { age: 59 };
+        const { name, email, phone, status, product } = req.body;
 
-        await supplierModel.findOneAndUpdate(filter, update);
-        res.status(200).send({
-            success: true,
-            message: "Transaction updated successfully"
-        });
+        // Check if all required fields are provided
+        if (!name || !email || !phone || !status || !product) {
+            return res.status(400).json({ success: false, message: 'All fields are required' });
+        }
+
+        const updatedSupplier = await supplierModel.findByIdAndUpdate(
+            req.params.sid, // Supplier ID
+            { name, email, phone, status, product }, // Updated data
+            { new: true } // Return updated document
+        );
+
+        if (!updatedSupplier) {
+            return res.status(404).json({ success: false, message: 'Supplier not found' });
+        }
+
+        res.status(200).json({ success: true, data: updatedSupplier });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: "Error in Delete API!",
-            error: error.message
-        });
+        console.error('Error updating supplier:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
 
-module.exports = { newsupplierController, getoneSupplier, deleteSupplier, updateSupplier };
+
+module.exports = { newsupplierController, getoneSupplier, deleteSupplier, updateSupplier, getAllSuppliers, getSupplierById };

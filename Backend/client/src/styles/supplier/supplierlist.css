@@ -1,0 +1,82 @@
+.btext {
+    text-align: center;
+    font-size: 35px;
+}
+
+.itm-conte {
+ align-items: center;
+ margin-left: auto;
+margin-right: auto;
+}
+
+.itm-conte h2 {
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 420px;
+    height: 40px;
+    border-radius: 10px;
+    border: .1px solid black;
+}
+
+.but {
+    width: 90px;
+    height: 40px;
+    border-radius: 10px;
+    border: .1px solid black;
+    margin-left: 150px;
+    margin-top: 20px;
+}
+
+.form-back {
+    background-color: beige;
+    padding: 30px;
+    border-radius: 20px;
+} 
+
+.sup-search {
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    margin-bottom: 60px;
+    border-radius: 10px;
+}
+
+.supp-gen-pdf {
+    margin-top: 20px;
+    margin-left: 30px;
+    padding: 5px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    border: .1px solid black;
+}
+
+.sup-update {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.sup-del {
+    background-color: rgb(229, 140, 140);
+    padding: 7px;
+    border-radius: 10px;
+    border-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }

@@ -9,7 +9,19 @@
 }
 
 .header-title {
-    color: #526d82;
+    color: #ffffff;
+    background-color: #969393;
+    border-radius: 6px;
+    padding: 3px;
+    margin-left: 30px;
+}
+
+.header-title2{
+    color: #ffffff;
+    background-color: #a6d892;
+    border-radius: 6px;
+    padding: 3px;
+    margin-left: 30px;
 }
 
 .header-activity {

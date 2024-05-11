@@ -1,50 +1,30 @@
 import React from 'react'
-import Sidebar from './components/salesManagement/Sidebar'
-import Content from './components/salesManagement/Content'
-import Card from './components/salesManagement/Card'
-import ContentHeader from './components/salesManagement/ContentHeader'
-import Profile from './components/salesManagement/Profile'
 
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter, Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import './App.css'
-import Itemlist from './components/salesManagement/Itemlist'
+
+import Cashier from './pages/cashier/Cahier'
+import SalesList from './pages/cashier/SalesList'
+// import UpdateSale from './pages/UpdateSale'
+import AddSupplier from './pages/supplier/AddSupplier'
+import SupplierList from './pages/supplier/SupplierList'
+import UpdateSupplier from './pages/supplier/UpdateSupplier'
 
 const App = () => {
-  const [selectedItems, setSelectedItems] = React.useState([]);
 
-  const addItemToProfile = (item) => {
-    setSelectedItems([...selectedItems, item]);
-  };
-
-  const removeItemFromProfile = (index) => {
-    const newItems = [...selectedItems];
-    newItems.splice(index, 1);
-    setSelectedItems(newItems);
-  };
-
-  const calculateSubtotal = () => {
-    return selectedItems.reduce((total, item) => total + item.price, 0);
-  };
   
   return (
-    <div className="dashboard">
-   
-   
-   <div className="dashboard-content">
-   <Sidebar />
-   
-      <div className="content">
-      <ContentHeader />
-        <Card />
-        <Itemlist addItemToProfile={addItemToProfile} />
-      </div>
-      <Profile
-        selectedItems={selectedItems}
-        removeItemFromProfile={removeItemFromProfile}
-        subtotal={calculateSubtotal()}
-      />
-   </div> 
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/cashier' element={<Cashier />}></Route>
+        <Route path='/sales' element={<SalesList />}></Route>
+        {/* <Route path='/update/:id' element={<UpdateSale />}></Route> */}
+
+        <Route path='/addsup' element={<AddSupplier />}></Route>
+        <Route path='/suplist' element={<SupplierList />}></Route>
+        <Route path='/upd/:id' element={<UpdateSupplier />}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

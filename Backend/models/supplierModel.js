@@ -18,7 +18,6 @@ const supplierSchema = mongoose.Schema({
     },
     photo: {
         type: String,
-        required :[true, "please add a Supplier Photo"],
         default: 'no-photo.jpg'
 
     },

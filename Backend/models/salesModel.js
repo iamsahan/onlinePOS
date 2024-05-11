@@ -58,10 +58,12 @@ const salesSchema = new mongoose.Schema({
 
         status : {
             type : String,
-            default : "pending",
+            default : "completed",
             required : [true, "Transaction Status is Reqired"],
             enum : ["completed", "returned", "pending"]
         }
+    },{
+        timestamps: true,
     }
 );
 

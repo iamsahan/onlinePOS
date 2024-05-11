@@ -1,9 +1,25 @@
-.containerr {
+  .containerr {
     background-color: #dde6ed;
     border-radius: 10px;
-    height: 750px;
+    height: 650px;
     position: relative;
-    width: 400px;
+    width: 460px;
+    margin-left: 30px;
+    margin-top: 30px;
+    border: .1px solid black;
+  }
+  .containerr table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .itm-cont {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cal {
+    text-align: center;
   }
   
   .containerr .div-wrapper {
@@ -16,8 +32,18 @@
     top: 678px;
     width: 348px;
   }
+
+  .containerr h2 {
+    text-align: center;
+    margin: 15px;
+  }
+
+  .cal-change {
+    margin-left: auto;
+    margin-right: auto;
+  }
   
-  .containerr .text-wrapper {
+  /* .containerr .text-wrapper {
     color: #ffffff;
     font-family: "Inter-Bold", Helvetica;
     font-size: 20px;
@@ -29,7 +55,7 @@
     text-align: center;
     top: 13px;
     white-space: nowrap;
-  }
+  } */
   
   .containerr .div {
     color: #171a1f;
@@ -43,6 +69,34 @@
     top: 21px;
     white-space: nowrap;
   }
+
+  .containerr .text-wrapper-1 {
+    color: #323842;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 530px;
+    margin-left: 40px;
+    white-space: nowrap;
+  }
+
+  .containerr .text-wrapper-4 {
+    color: #323842;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 570px;
+    margin-left: 40px;
+    white-space: nowrap;
+  }
   
   .containerr .text-wrapper-2 {
     color: #323842;
@@ -53,9 +107,11 @@
     letter-spacing: 0;
     line-height: 22px;
     position: absolute;
-    top: 614px;
+    top: 550px;
+    margin-left: 40px;
     white-space: nowrap;
   }
+
   
   .containerr .text-wrapper-3 {
     color: #171a1f;
@@ -66,7 +122,7 @@
     letter-spacing: 0;
     line-height: 22px;
     position: absolute;
-    top: 610px;
+    top: 550px;
     white-space: nowrap;
   }
   
@@ -78,4 +134,50 @@
     top: 590px;
     width: 338px;
   }
-  
+
+  ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .del {
+    margin-left: 20px;
+  }
+
+ /* styles/profile.css */
+
+.profile-table {
+  width: 100%;
+  border-collapse: separate; /* Use separate border-collapse */
+  border-spacing: 0 10px; /* Add vertical spacing between rows */
+  text-align: right;
+}
+
+.profile-table th,
+.profile-table td {
+  border: 1px solid #dddddd;
+  padding: 18px;
+  text-align: right;
+}
+
+.tname { 
+  padding: 10px;
+}
+
+.cal-btn {
+    font-size: 18px;
+    font-weight: 700;
+    left: 115px;
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 600px;
+    white-space: nowrap;
+    padding: 5px 70px;
+    background-color: green;
+    border-radius: 20px;
+    border-style: none;
+ 
+}

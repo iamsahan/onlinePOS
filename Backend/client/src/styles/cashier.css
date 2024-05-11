@@ -1,0 +1,33 @@
+.dashboard {
+    height: 95vh;
+
+}
+
+.dashboard-content {
+    border: 0.1px solid rgb(114, 114, 114);
+    background-color: #b8bec6;
+}
+
+.itm-cont {
+    margin-left: 70px;
+}
+
+.prof-head {
+    background-color: rgb(43, 43, 43);
+    width: 517px;
+    height: 50px;
+}
+
+.content-header {
+    background-color: rgb(43, 43, 43);
+    height: 50px;
+}
+
+.dte-tme{
+    color: white;
+    padding-top: 15px;
+    float: right;
+    padding-right: 40px;
+}
+
+

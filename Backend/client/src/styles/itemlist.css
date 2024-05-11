@@ -17,6 +17,9 @@
     gap: 10px;
     overflow:scroll;
     height: 390px;
+    border: .1px solid rgb(143, 142, 142);
+    padding: 10px 25px;
+    border-radius: 10px;
 }
 
 .container {
@@ -24,7 +27,7 @@
     border-radius: 6px;
     height: 130px;
     position: relative;
-    width: 290px;
+    width: 250px;
     cursor: pointer;
   }
   
@@ -39,7 +42,7 @@
   .container .text-wrapper {
     color: #171a1f;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 700;
     left: 129px;
     letter-spacing: 0;
