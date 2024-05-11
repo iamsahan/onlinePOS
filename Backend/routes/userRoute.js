@@ -1,39 +1,36 @@
-const express = require("express");
-
-const authController = require("./../controllers/authController");
-const userController = require('./../controllers/userController');
-
+import express from 'express';
+import { signUp, login } from '../controllers/authController.js';
+import { getAllUsers, createUser, getUser, updateUser, deleteUser } from '../controllers/userController.js';
 
 const router = express.Router();
 
-router.route("/signup").post(authController.signUp);
+router.route('/signup').post(signUp);
 
-router.route("/login").post(authController.login);
+router.route('/login').post(login);
 
-// router.route("/forgotPassword").post(authController.forgotPassword);
+// router.route('/forgotPassword').post(forgotPassword);
 
-// router.route("/resetPassword/:otp").patch(authController.resetPassword);
+// router.route('/resetPassword/:otp').patch(resetPassword);
 
-// router.use(authController.protect);
+// router.use(protect);
 
-// router.route("/updateMyPassword").patch(authController.updatePassword);
+// router.route('/updateMyPassword').patch(updatePassword);
 
-// router.route("/updateMe").patch(userController.updateMe);
+// router.route('/updateMe').patch(updateMe);
 
-// router.route("/deleteMe").patch(userController.deleteMe);
+// router.route('/deleteMe').patch(deleteMe);
 
-router.use(authController.restrictTo('admin'));
+// router.use(authController.restrictTo('admin'));
 
-router
-  .route('/')
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
+// router
+//   .route('/')
+//   .get(getAllUsers)
+//   .post(createUser);
 
-router
-  .route('/:id')
-  .get(userController.getUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+// router
+//   .route('/:id')
+//   .get(getUser)
+//   .patch(updateUser)
+//   .delete(deleteUser);
 
-
-module.exports = router;
+export default router;

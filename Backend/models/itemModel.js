@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import slugify from "slugify";
 
-const slugify = require("slugify");
+const { Schema } = mongoose;
 
-const itemSchema = new mongoose.Schema(
+const itemSchema = new Schema(
   {
     name: {
       type: String,
@@ -20,7 +21,7 @@ const itemSchema = new mongoose.Schema(
       type: String,
     },
     category: {
-      type: mongoose.Schema.ObjectId,
+      type: Schema.ObjectId,
       ref: "Category",
       required: [true, "Item must belong to a category"],
     },
@@ -54,4 +55,4 @@ itemSchema.pre("save", function (next) {
 
 const Item = mongoose.model("Item", itemSchema);
 
-module.exports = Item;
+export default Item;

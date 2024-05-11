@@ -1,22 +1,22 @@
-const salesModel = require('../models/salesModel');
-const mongoose = require('mongoose');
+import salesModel from '../models/salesModel.js';
+import mongoose from 'mongoose';
 
-const newsalesController = async(req, res) => {
+const newsalesController = async (req, res) => {
     try {
         const transaction = new salesModel(req.body);
         await transaction.save();
 
         return res.status(201).send({
-            sucess : true,
-            message : "Transaction Sucessfully",
+            sucess: true,
+            message: "Transaction Successfully",
             transaction
         });
 
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            sucess : false,
-            message : "Error in transaction api",
+            sucess: false,
+            message: "Error in transaction API",
             error
         });
     }
@@ -25,35 +25,35 @@ const newsalesController = async(req, res) => {
 // Route to get all sales records
 const getallSale = async (req, res) => {
     try {
-      const sales = await salesModel.find();
-      res.json(sales);
+        const sales = await salesModel.find();
+        res.json(sales);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
-  };
+};
 
-const getoneSale = async(req,res) => {
+const getoneSale = async (req, res) => {
     try {
-        const transaction = await salesModel.findOne({transactionID : req.params.tid});
+        const transaction = await salesModel.findOne({ transactionID: req.params.tid });
 
-        if(!transaction) {
+        if (!transaction) {
             return res.status(404).send({
-                success : false,
-                message : "Transaction Not Found!",
+                success: false,
+                message: "Transaction Not Found!",
             });
         }
 
         res.status(200).json({
-            status : "success",
-            data : {
+            status: "success",
+            data: {
                 transaction
             }
         })
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            sucess : false,
-            message : "Error in Fetch API!",
+            sucess: false,
+            message: "Error in Fetch API!",
             error
         })
     }
@@ -71,23 +71,6 @@ const getSalesById = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
-
-// const deleteSale = async (req, res) => {
-//     try {
-//         await salesModel.findByIdAndDelete(req.params.objid);
-//         res.status(200).send({
-//             success: true,
-//             message: "Transaction deleted successfully"
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send({
-//             success: false,
-//             message: "Error in Delete API!",
-//             error: error.message
-//         });
-//     }
-// };
 
 const deleteSale = async (req, res) => {
     try {
@@ -130,16 +113,15 @@ const updateSale = async (req, res) => {
 const upsale = async (req, res) => {
     const { id } = req.params.id;
     const { updatedData } = req.body;
-    const update = { status:  "returned"};
-  
+    const update = { status: "returned" };
+
     try {
-      const updatedSale = await Sales.findByIdAndUpdate(id, update, { new: true });
-      res.json(updatedSale);
+        const updatedSale = await Sales.findByIdAndUpdate(id, update, { new: true });
+        res.json(updatedSale);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
-  };
+};
 
 
-
-module.exports = { newsalesController, getoneSale, getSalesById, deleteSale, updateSale, getallSale, upsale};
+export { newsalesController, getoneSale, getSalesById, deleteSale, updateSale, getallSale, upsale };

@@ -1,12 +1,11 @@
-const jwt = require("jsonwebtoken");
-const User = require("./../models/userModel");
-const { promisify } = require("util");
-
-const catchAsync = require("./../utils/catchAsync");
-const AppError = require("./../utils/appError");
+import jwt from "jsonwebtoken";
+import User from "./../models/userModel.js";
+import { promisify } from "util";
+import catchAsync from "./../utils/catchAsync.js";
+import AppError from "./../utils/appError.js";
 
 const signToken = (id) => {
-  return jwt.sign({ id: id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
@@ -23,23 +22,23 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-exports.signUp = catchAsync(async (req, res, next) => {
+export const signUp = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
 
   createSendToken(newUser, 201, res);
 });
 
-exports.login = catchAsync(async (req, res, next) => {
+export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(AppError("Enter email and Password", 400));
+    return next(new AppError("Enter email and Password", 400));
   }
 
-  const user = await User.findOne({ email: email }).select("+password");
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(AppError("Invalid Email or Password", 401));
+    return next(new AppError("Invalid Email or Password", 401));
   }
 
   const token = signToken(user._id);
@@ -50,7 +49,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.protect = catchAsync(async (req, res, next) => {
+export const protect = catchAsync(async (req, res, next) => {
   // check token
   let token;
   if (
@@ -84,14 +83,11 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.restrictTo = (...roles) => {
+export const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError("You have no permissions to perform this!", 401)
-      );
+      return next(new AppError("You have no permissions to perform this!", 401));
     }
     next();
   };
-  next();
 };

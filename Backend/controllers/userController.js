@@ -1,10 +1,7 @@
-const User = require("../models/userModel");
-
-const catchAsync = require('./../utils/catchAsync');
-
-const AppError = require('./../utils/appError');
-
-const factory = require('./factoryHandler');
+import User from "../models/userModel";
+import catchAsync from "./../utils/catchAsync";
+import AppError from "./../utils/appError";
+import factory from "./factoryHandler";
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -16,7 +13,7 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.updateMe = catchAsync(async (req, res, next) => {
+export const updateMe = catchAsync(async (req, res, next) => {
   // 1. create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(new AppError('Cannot update passwords in this route!', 400));
@@ -39,7 +36,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteMe = catchAsync(async (req, res, next) => {
+export const deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(
     req.user.id,
     { active: false },
@@ -55,12 +52,4 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllUsers = factory.getAll(User);
 
-exports.getUser = factory.getOne(User);
-
-exports.createUser = factory.createOne(User);
-
-exports.updateUser = factory.updateOne(User); //Do not update passwords with this!
-
-exports.deleteUser = factory.deleteOne(User);

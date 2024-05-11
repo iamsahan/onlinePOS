@@ -1,8 +1,8 @@
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
-const ApiFeatures = require('../utils/apiFeatures');
+import catchAsync from './../utils/catchAsync.js';
+import AppError from './../utils/appError.js';
+import ApiFeatures from '../utils/apiFeatures.js';
 
-exports.deleteOne = (Model) =>
+export const deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
@@ -16,7 +16,7 @@ exports.deleteOne = (Model) =>
     });
   });
 
-exports.updateOne = (Model) =>
+export const updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -35,7 +35,7 @@ exports.updateOne = (Model) =>
     });
   });
 
-exports.createOne = (Model) =>
+export const createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const newDoc = await Model.create(req.body);
 
@@ -47,7 +47,7 @@ exports.createOne = (Model) =>
     });
   });
 
-exports.getOne = (Model, popOptions) =>
+export const getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
     if (popOptions) {
@@ -68,7 +68,7 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+export const getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     // To allow for nested GET purchases on item
     let filter = {};
@@ -82,13 +82,13 @@ exports.getAll = (Model) =>
 
     // if (req.params.salesType) filter = { bill: req.params.salesType };
 
-    const featues = new ApiFeatures(Model.find(filter), req.query)
+    const features = new ApiFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
 
-    const doc = await featues.query;
+    const doc = await features.query;
 
     res.status(200).json({
       status: 'success',

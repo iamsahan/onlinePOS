@@ -1,11 +1,13 @@
-const mongoose = require("mongoose");
-const slugify = require("slugify");
+import mongoose from "mongoose";
+import slugify from "slugify";
 
-const categorySchema = new mongoose.Schema(
+const { Schema } = mongoose;
+
+const categorySchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "A catogery must have a name!"],
+      required: [true, "A category must have a name!"],
     },
     slug: {
       type: String,
@@ -25,4 +27,4 @@ categorySchema.pre("save", function (next) {
 
 const Category = mongoose.model("Category", categorySchema);
 
-module.exports = Category;
+export default Category;

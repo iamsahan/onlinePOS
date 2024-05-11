@@ -1,49 +1,48 @@
-const supplierModel = require('../models/supplierModel');
-const mongoose = require('mongoose');
+import supplierModel from '../models/supplierModel';
 
-const newsupplierController = async(req, res) => {
+const newsupplierController = async (req, res) => {
     try {
         const transaction = new supplierModel(req.body);
         await transaction.save();
 
         return res.status(201).send({
-            sucess : true,
-            message : "Transaction Sucessfully",
+            success: true,
+            message: "Transaction Successfully",
             transaction
         });
 
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            sucess : false,
-            message : "Error in transaction api",
+            success: false,
+            message: "Error in transaction API",
             error
         });
     }
 };
 
-const getoneSupplier = async(req,res) => {
+const getoneSupplier = async (req, res) => {
     try {
-        const supplier = await supplierModel.findOne({_id : req.params.sid});
+        const supplier = await supplierModel.findOne({ _id: req.params.sid });
 
-        if(!supplier) {
+        if (!supplier) {
             return res.status(404).send({
-                success : false,
-                message : "Transaction Not Found!",
+                success: false,
+                message: "Transaction Not Found!",
             });
         }
 
         res.status(200).json({
-            status : "success",
-            data : {
+            status: "success",
+            data: {
                 supplier
             }
         })
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            sucess : false,
-            message : "Error in Fetch API!",
+            success: false,
+            message: "Error in Fetch API!",
             error
         })
     }
@@ -64,13 +63,13 @@ const getSupplierById = async (req, res) => {
 
 const getAllSuppliers = async (req, res) => {
     try {
-      const suppliers = await supplierModel.find();
-      res.status(200).json({ data: suppliers });
+        const suppliers = await supplierModel.find();
+        res.status(200).json({ data: suppliers });
     } catch (error) {
-      console.error('Error getting suppliers:', error);
-      res.status(500).json({ error: 'Server error' });
+        console.error('Error getting suppliers:', error);
+        res.status(500).json({ error: 'Server error' });
     }
-  };
+};
 
 const deleteSupplier = async (req, res) => {
     try {
@@ -88,7 +87,6 @@ const deleteSupplier = async (req, res) => {
         });
     }
 };
-
 
 const updateSupplier = async (req, res) => {
     try {
@@ -116,5 +114,4 @@ const updateSupplier = async (req, res) => {
     }
 };
 
-
-module.exports = { newsupplierController, getoneSupplier, deleteSupplier, updateSupplier, getAllSuppliers, getSupplierById };
+export { newsupplierController, getoneSupplier, deleteSupplier, updateSupplier, getAllSuppliers, getSupplierById };
