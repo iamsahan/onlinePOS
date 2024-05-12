@@ -91,21 +91,27 @@ const deleteSale = async (req, res) => {
 
 const updateSale = async (req, res) => {
     try {
-        const filter = { name: 'Jean-Luc Picard' };
-        const update = { age: 59 };
+        const { transactionID, timestamp, cashier, product, totalAmount, customerID, billID, paymentMethod, status } = req.body;
 
-        await salesModel.findOneAndUpdate(filter, update);
-        res.status(200).send({
-            success: true,
-            message: "Transaction updated successfully"
-        });
+        // Check if all required fields are provided
+        if (!name || !email || !phone || !status || !product) {
+            return res.status(400).json({ success: false, message: 'All fields are required' });
+        }
+
+        const updatedSales = await salesModel.findByIdAndUpdate(
+            req.params.id, // Supplier ID
+            { transactionID, timestamp, cashier, product, totalAmount, customerID, billID, paymentMethod, status }, // Updated data
+            { new: true } // Return updated document
+        );
+
+        if (!updatedSales) {
+            return res.status(404).json({ success: false, message: 'Supplier not found',transactionID });
+        }
+
+        res.status(200).json({ success: true, data: updatedSupplier });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: "Error in Delete API!",
-            error: error.message
-        });
+        console.error('Error updating supplier:', error);
+        res.status(500).json({ success: false, message: 'Internal server error', transactionID });
     }
 
 };

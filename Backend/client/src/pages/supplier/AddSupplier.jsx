@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { getStorage } from 'firebase/storage';
 import { initializeApp } from "firebase/app";
@@ -27,6 +28,8 @@ const AddSupplier = () => {
         measurementId: "G-4EBK1WK4GV"
       };
     
+      const navigate = useNavigate();
+
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
     
@@ -62,6 +65,7 @@ const AddSupplier = () => {
       const res = await axios.post('http://localhost:8070/api/sup/addsupplier', formData);
       console.log(res.data);
       swal("Good job!", "Supplier Added Successfully!", "success");
+      navigate('/suplist');
     } catch (err) {
       console.error('Error adding supplier:', err.response.data);
     }

@@ -10,7 +10,7 @@ margin-right: auto;
 }
 
 .itm-conte h2 {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     margin-top: 30px;
 }
 
@@ -53,6 +53,24 @@ margin-right: auto;
     margin-bottom: 40px;
     border-radius: 10px;
     border: .1px solid black;
+    margin-right: 10px;
+}
+
+.status-filter {
+    margin-right: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}
+
+.add-supplier-btn {
+    background-color: aquamarine;
+    padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    position: absolute;
+    top: 14rem;
 }
 
 .sup-update {
@@ -68,11 +86,21 @@ margin-right: auto;
     padding: 7px;
     border-radius: 10px;
     border-style: none;
+    margin-right: 5px;
+}
+
+.sup-email {
+    background-color: rgb(149, 229, 140);
+    padding: 7px;
+    border-radius: 10px;
+    border-style: none;
 }
 
 table {
+    margin-top: 60px;
     border-collapse: collapse;
     width: 100%;
+    min-width: 900px;
   }
   
   th, td {

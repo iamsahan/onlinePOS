@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/add', newsalesController);
 router.get('/sale', getallSale);
 router.get('/getsale/:id', getSalesById);
-router.put('/update/:id', upsale);
+router.post('/updte/:id', upsale);
 router.get('/delpos/:ssid', deleteSale);
 
 export default router;

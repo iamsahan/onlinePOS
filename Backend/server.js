@@ -9,6 +9,11 @@ import categoryRoute from "./routes/categoryRoute.js";
 import itemRoute from "./routes/itemRoute.js";
 import supplierRoutes from "./routes/supplierRoute.js";
 
+import EmployeeRoute from './routes/EmployeeRoute.js';
+import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js';
+import Return_Route from './routes/Return_Route.js';
+import Customer_Route from './routes/Customer_Route.js';
+
 import errorHandler from "./middleware/errorMiddleware.js";
 import posRoute from "./routes/posRoute.js";
 

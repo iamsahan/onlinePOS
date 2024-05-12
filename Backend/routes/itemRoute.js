@@ -4,11 +4,11 @@ import * as itemController from "../controllers/itemController.js";
 const router = express.Router();
 
 router.route("/")
-  .get(itemController.getAllItems)
+  // .get(itemController.getAllItems)
   .post(itemController.createItem);
 
 router.route("/:id")
-  .get(itemController.getItem)
+  // .get(itemController.getItem)
   .patch(itemController.updateItem)
   .delete(itemController.deleteItem);
 
