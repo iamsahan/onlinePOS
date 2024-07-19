@@ -5,47 +5,68 @@ const { Schema } = mongoose;
 
 const itemSchema = new Schema(
   {
-    name: {
+    ptype: {
       type: String,
       required: [true, "Item must have a name!"],
     },
-    slug: {
+    name: {
       type: String,
       unique: true,
     },
-    itemCode: {
+    barcode: {
       type: String,
       unique: true,
     },
-    description: {
+    cost: {
       type: String,
     },
-    category: {
-      type: Schema.ObjectId,
-      ref: "Category",
+    exp: {
+      type: String,
+      //type: Schema.ObjectId,
+      //ref: "Category",
       required: [true, "Item must belong to a category"],
     },
-    noOfPurchases: {
-      type: Number,
-      default: 0,
+    istrack: {
+      type: String,
+      
     },
-    stock: {
-      type: Number,
-      default: 0,
-    },
-    isAvailable: {
-      type: Boolean,
+    mrkup: {
+      type: String,
       default: false,
     },
-    returns: {
+    mfd: {
+      type: String,
+      default: false,
+    },
+    exp: {
+      type: String,
+      default: false,
+      required: [true, "Transaction Amount is Required"],
+    },
+    retail: {
       type: Number,
       min: 0,
     },
+    sell: {
+      type: Number,
+      min: 0,
+    },
+    sku: {
+      type: Number,
+      min: 0,
+    },
+    sup: {
+      type: String,
+      min: 0,
+    },
+    tax: {
+      type: Number,
+      min: 0,
+    },
+    slug: {
+      type: String,
+    }
   },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
 );
 
 itemSchema.pre("save", function (next) {

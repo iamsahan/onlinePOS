@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 
 import Sidebar from '../../components/salesManagement/Sidebar';
 
+import { useNavigate } from 'react-router-dom';
+
+import swal from 'sweetalert';
+
 const SupplierUpdatePage = () => {
   const { id } = useParams(); // Use useParams hook to access route parameters
   const [formData, setFormData] = useState({
@@ -14,6 +18,9 @@ const SupplierUpdatePage = () => {
     product: ''
   });
 
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     const fetchSupplier = async () => {
         try {
@@ -21,6 +28,7 @@ const SupplierUpdatePage = () => {
             if (response.data.success) {
               console.log('Fetched supplier data:', response.data.data); // Log fetched data
               setFormData(response.data.data); // Update formData state
+              
             } else {
               console.error('Supplier not found:', response.data.message);
             }
@@ -41,7 +49,9 @@ const SupplierUpdatePage = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:8070/api/sup/updt/${id}`, formData);
-      // Optionally, you can redirect the user to another page after successful update
+      
+      swal("Good job!", "Supplier Updated Successfully!", "success");
+      navigate('/suplist');
     } catch (error) {
       console.error('Error updating supplier:', error);
     }

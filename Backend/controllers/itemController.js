@@ -2,15 +2,14 @@ import Item from "./../models/itemModel";
 import catchAsync from "./../utils/catchAsync";
 
 export const getAllItems = catchAsync(async (req, res, next) => {
-  const items = await Item.find();
 
-  res.status(200).json({
-    status: "success",
-    results: items.length,
-    data: {
-      items,
-    },
-  });
+  try {
+    const items = await Item.find();
+    res.status(200).json({ data: items });
+} catch (error) {
+    console.error('Error getting items:', error);
+    res.status(500).json({ error: 'Server error' });
+}
 });
 
 export const getItem = catchAsync(async (req, res, next) => {

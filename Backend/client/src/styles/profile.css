@@ -11,6 +11,11 @@
   .containerr table {
     margin-left: auto;
     margin-right: auto;
+   
+  }
+
+  .con-data table {
+    width: 100px;
   }
 
   .itm-cont {

@@ -6,7 +6,7 @@
 .itm-conte {
  align-items: center;
  margin-left: auto;
-margin-right: auto;
+ margin-right: auto;
 }
 
 .itm-conte h2 {
@@ -33,7 +33,7 @@ margin-right: auto;
 }
 
 .form-back {
-    background-color: beige;
+    /* background-color: beige; */
     padding: 30px;
     border-radius: 20px;
 } 

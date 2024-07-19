@@ -16,7 +16,7 @@ function ShowEmployee() {
   const fetchEmployees = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8090/employees');
+      const response = await axios.get('http://localhost:8070/employees');
       setEmployees(response.data.data);
     } catch (error) {
       console.error('Error fetching employees:', error);
@@ -27,7 +27,7 @@ function ShowEmployee() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8090/searchEmployee?search=${searchQuery}`);
+      const response = await axios.get(`http://localhost:8070/searchEmployee?search=${searchQuery}`);
       setEmployees(response.data.data);
     } catch (error) {
       console.error('Error fetching employee:', error);
@@ -70,7 +70,7 @@ function ShowEmployee() {
   return (
     <div className="d-flex">
       <div>
-        <Sidebar Toggle={Toggle} />
+        <Sidebar />
       </div>
       <div className="flex-grow-1 px-3"><br/>
         <h3><u>Employee List</u></h3><br/>

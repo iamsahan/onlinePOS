@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../../styles/itemlist.css";
 import { itemData } from './Data';
+import axios from 'axios';
 import { BiSearch } from 'react-icons/bi';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import BarcodeScanner from './BarcodeScanner';
 
 const Itemlist = ({ addItemToProfile }) => {
+
+    const [itemData, setitemData] = useState([]);
     const [detail, setDetail] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [isCameraOpen, setIsCameraOpen] = useState(true); // State to manage camera visibility
     const [searchValue, setSearchValue] = useState(""); // State to store search box value
+
+
+    useEffect(() => {
+        const fetchSuppliers = async () => {
+          try {
+            const response = await axios.get('http://localhost:8070/api/itm/allitem');
+            setitemData(response.data.data);
+            console.log(itemData);
+          } catch (error) {
+            console.error('Error fetching suppliers:', error);
+          }
+        };
+    
+        fetchSuppliers();
+      }, []);
 
     const detailPage = (item) => {
         setDetail(item);
@@ -41,7 +59,7 @@ const Itemlist = ({ addItemToProfile }) => {
 
     const handleSearch = () => {
         // Perform search based on the search box value
-        const searchResult = itemData.filter(item => item.code === searchValue);
+        const searchResult = itemData.filter(item => item.name === searchValue);
         if (searchResult.length > 0) {
             // If found, navigate to the detail page of the first matching item
             detailPage(searchResult[0]);
@@ -67,9 +85,9 @@ const Itemlist = ({ addItemToProfile }) => {
                                 <hr/>
                                 Category : {detail.category}
                                 <br />
-                                Code : {detail.code}
+                                Code : {detail.barcode}
                                 <br />
-                                Sales Price : {detail.salesPrice}
+                                Sales Price : {detail.sell}
                             </p>
                             <label>
                                 Quantity:
@@ -108,11 +126,11 @@ const Itemlist = ({ addItemToProfile }) => {
                             <img className="image" alt="Product" src={item.image} />
                             <div className="text-wrapper">{item.name}<hr/></div>
                             <p className="category-soapunit">
-                                Category : {item.category}
+                                Category : {item.ptype}
                                 <br />
-                                Code : {item.code}
+                                Code : {item.barcode}
                                 <br />
-                                Sales Price : {item.salesPrice}
+                                Sales Price : {item.sell}
                             </p>
                         </div>
                     ))}

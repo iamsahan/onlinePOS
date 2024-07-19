@@ -36,7 +36,7 @@ const Profile = ({ selectedItems, removeItemFromProfile, subtotal }) => {
     cashier: "John Doe", // Example cashier name
     product: selectedItems.map(item => ({
       name: item.name,
-      price: item.price,
+      price: item.sell,
       qty: item.quantity
     })),
     totalAmount: subtotal,
@@ -89,10 +89,10 @@ const Profile = ({ selectedItems, removeItemFromProfile, subtotal }) => {
       <h2>Invoice</h2>
       <p>--------------------------------------------------------------------------</p>
       <div className="con-data">
-        <table>
+        <table >
           <thead>
             <tr>
-              <th className='tname'>Name</th>
+              <th >Name</th>
               <th className='tprice'>Price</th>
               <th className='tqty'>Qty</th>
               <th className='ttotal'>Total</th>
@@ -105,9 +105,9 @@ const Profile = ({ selectedItems, removeItemFromProfile, subtotal }) => {
               <>
                 <tr key={index}>
                   <td className='dta'>{item.name}</td>
-                  <td className='dta'>${item.price}</td>
+                  <td className='dta'>${item.sell}</td>
                   <td className='dta'>{item.quantity}</td>
-                  <td className='dta'>${item.price * item.quantity}</td>
+                  <td className='dta'>${item.sell * item.quantity}</td>
                   <td><button className='del' onClick={() => removeItemFromProfile(index)}>DEL</button></td>
                 </tr><hr />
               </>

@@ -29,7 +29,7 @@ const Sidebar = () => {
                 <BiTask className="icon"/>
                 Purchase 
             </a>
-            <a href="#" id={"4"} onClick={handleClick} className={(active === "4" ? "active item":"item")}  >
+            <a href="/suplist" id={"4"} onClick={handleClick} className={(active === "4" ? "active item":"item")}  >
                 <BiStats className="icon"/>
                 Supplier
             </a>

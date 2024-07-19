@@ -25,7 +25,7 @@ const Cashier = () => {
     };
   
     const calculateSubtotal = () => {
-      return selectedItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+      return selectedItems.reduce((total, item) => total + (item.sell * item.quantity), 0);
     };
     
     return (

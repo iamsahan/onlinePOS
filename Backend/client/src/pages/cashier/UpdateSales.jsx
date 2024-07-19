@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Sidebar from '../../components/salesManagement/Sidebar';
 
 const SupplierUpdatePage = () => {
   const { id } = useParams(); // Use useParams hook to access route parameters
   const [formData, setFormData] = useState({
-    transactionID: '',
-    timestamp: '',
-    cashier: '',
-    product: '',
-    totalAmount: '',
-    customerID: '',
-    billID: '',
-    paymentMethod: '',
+    
     status: '',
     
   });
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchSupplier = async () => {
@@ -45,8 +42,10 @@ const SupplierUpdatePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:8070/api/pos/updte/${id}`, formData);
+      await axios.put(`http://localhost:8070/api/pos/updte/${id}`, formData);
       // Optionally, you can redirect the user to another page after successful update
+      swal("Good job!", "Sales Updated Successfully!", "success");
+      navigate('/sales');
     } catch (error) {
       console.error('Error updating supplier:', error);
     }
@@ -58,27 +57,11 @@ const SupplierUpdatePage = () => {
 
         <div className="dashboard-content">
         <div className="itm-conte">
-      <h2>Update Supplier</h2>
+      <h2>Update Suales</h2>
       <form onSubmit={handleSubmit}>
-      <label>Name:</label><br/>
-        <input type="text" name="name" value={ formData.transactionID} onChange={handleChange} placeholder={formData.transactionID} required /><br/>
-        <label>Email:</label><br/> 
-        <input type="text" name="email" value={formData.timestamp} onChange={handleChange} placeholder={formData.timestamp} required /><br/>
-        <label>Phone:</label><br/>
-        <input type="text" name="phone" value={formData.cashier} onChange={handleChange} placeholder={formData.cashier} required /><br/>
-        <label>Status:</label><br/>
-        <input type="text" name="status" value={formData.product} onChange={handleChange} placeholder={formData.product} required /><br/>
-        <label>Product:</label><br/>
-        <input type="text" name="product" value={formData.totalAmount} onChange={handleChange} placeholder={formData.totalAmount} required /><br/>
-        <label>Product:</label><br/>
-        <input type="text" name="product" value={formData.customerID} onChange={handleChange} placeholder={formData.customerID} required /><br/>
-        <label>Product:</label><br/>
-        <input type="text" name="product" value={formData.billID} onChange={handleChange} placeholder={formData.billID} required /><br/>
-        <label>Product:</label><br/>
-        <input type="text" name="product" value={formData.paymentMethod} onChange={handleChange} placeholder={formData.paymentMethod} required /><br/>
-        <label>Product:</label><br/>
-        <input type="text" name="product" value={formData.status} onChange={handleChange} placeholder={formData.status} required /><br/>
-        <button className="btn" type="submit">Update Supplier</button>
+     
+        <input type="text" name="status" value={formData.status} onChange={handleChange} placeholder={formData.status} required /><br/>
+        <button className="btn" type="submit">Update Sales</button>
       </form>
     </div>
     </div>

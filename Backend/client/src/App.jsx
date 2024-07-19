@@ -52,6 +52,9 @@ import DeleteCustomer from './assets/pages/Customer/DeleteCustomer';
 import ReadOneCustomer from './assets/pages/Customer/ReadOneCustomer';
 import ReportCustomer from './assets/pages/Customer/ReportCustomer';
 
+import  AddProduct  from './pages/product/AddProduct'
+import ProductList from './pages/product/ProductList'
+
 const App = () => {
 
   
@@ -103,6 +106,11 @@ const App = () => {
         <Route path="/email" element={<PurchaseMailer />} />
         <Route path="/update/:orderID" element={<UpdateStatus />} />
         <Route path="/change/:orderID" element={<UpdateOrder />} />
+
+
+
+        <Route path="/addproduct" element={<AddProduct />} />
+        <Route path="/productlist" element={<ProductList />} />
       </Routes>
     </BrowserRouter>
   )

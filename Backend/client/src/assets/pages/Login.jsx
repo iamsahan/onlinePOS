@@ -14,14 +14,14 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('http://localhost:8090/employees/login', { phone, password });
+      const response = await axios.post('http://localhost:8070/employees/login', { phone, password });
       console.log('Login successful:', response.data);
       setUser(response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
       if (user.role === "manager" || user.role === "admin") {
         navigation("/employees/allEmployee");
-      } else if (user.role === 'cashier') {
-        // navigation('/additems');
+      } else if (user.role === 'Cashier') {
+        navigation("/cashier")
       } else {
         // navigation('/');
       }

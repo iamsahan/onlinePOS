@@ -91,16 +91,12 @@ const deleteSale = async (req, res) => {
 
 const updateSale = async (req, res) => {
     try {
-        const { transactionID, timestamp, cashier, product, totalAmount, customerID, billID, paymentMethod, status } = req.body;
+        const { status } = req.body;
 
-        // Check if all required fields are provided
-        if (!name || !email || !phone || !status || !product) {
-            return res.status(400).json({ success: false, message: 'All fields are required' });
-        }
 
         const updatedSales = await salesModel.findByIdAndUpdate(
-            req.params.id, // Supplier ID
-            { transactionID, timestamp, cashier, product, totalAmount, customerID, billID, paymentMethod, status }, // Updated data
+            req.params.id, 
+            { status }, // Updated data
             { new: true } // Return updated document
         );
 
@@ -108,7 +104,7 @@ const updateSale = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Supplier not found',transactionID });
         }
 
-        res.status(200).json({ success: true, data: updatedSupplier });
+        res.status(200).json({ success: true, data: updatedSales });
     } catch (error) {
         console.error('Error updating supplier:', error);
         res.status(500).json({ success: false, message: 'Internal server error', transactionID });

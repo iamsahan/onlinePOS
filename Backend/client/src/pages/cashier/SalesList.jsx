@@ -122,29 +122,34 @@ const SalesList = () => {
 
       <div className="dashboard-content">
         <div className="itm-conte">
-      <h1>Sales Records</h1>
+      <h1 style={{marginLeft:"480px", marginTop:"30px"}}>Sales Records</h1>
+      <hr/>
       <div>
         <input
+        className="sup-search" style={{marginLeft:"250px", marginTop:"50px"}}
           type="text"
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
           placeholder="Search by sales ID"
         />
         <input
+        className="status-filter"
           type="date"
+          style={{marginLeft:"80px"}}
           value={selectedDate}
           onChange={e => setSelectedDate(e.target.value)}
           placeholder="Filter by date"
         />
-        <button onClick={generatePDF}>Export to PDF</button>
+        <button className='supp-gen-pdf' onClick={generatePDF}>Export to PDF</button>
       </div>
+      
       <table>
         <thead>
           <tr>
             <th>Transaction ID</th>
             <th>Total Amount</th>
             <th>Products</th>
-            <th>Cashier</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -164,10 +169,10 @@ const SalesList = () => {
           <span>No products</span>
         )}
               </td>
-              <td>{sale.cashier}</td>
+              <td>{sale.status}</td>
               <td>
-                    <Link to={`/update/${sale._id}`}>Update</Link> {/* Use Link for navigation */}
-                    <button onClick={() => handleDelete(sale._id)}>Delete</button>
+                    {/*<Link className='sup-update' to={`/update/${sale._id}`}>Update</Link> Use Link for navigation */}
+                    <button className='sup-del' style={{ margin: '8px', width: '70px' }} onClick={() => handleDelete(sale._id)}>Delete</button>
                   </td>
             </tr>
           ))}

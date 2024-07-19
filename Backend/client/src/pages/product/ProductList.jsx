@@ -6,22 +6,23 @@ import "../../styles/supplier/supplierlist.css";
 import Swal from 'sweetalert2';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import emailjs from 'emailjs-com';
 
-const SupplierList = () => {
+
+const ProductList = () => {
+
   const [suppliers, setSuppliers] = useState([]);
   const [filteredSuppliers, setFilteredSuppliers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [customMessage, setCustomMessage] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [selectedSupplierEmail, setSelectedSupplierEmail] = useState('');
+  
+
 
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/api/sup/suppliers');
+        const response = await axios.get('http://localhost:8070/api/itm/allitem');
         setSuppliers(response.data.data);
+        console.log(suppliers);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
       }
@@ -30,37 +31,15 @@ const SupplierList = () => {
     fetchSuppliers();
   }, []);
 
-  useEffect(() => {
-    // Filter suppliers based on status and search query
-    const filtered = suppliers.filter(supplier =>
-      (supplier.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (statusFilter === 'all' || supplier.status === statusFilter)
-    );
-    setFilteredSuppliers(filtered);
-  }, [searchQuery, statusFilter, suppliers]);
+//   useEffect(() => {
+//     // Filter suppliers based on status and search query
+//     const filtered = suppliers.filter(supplier =>
+//       (supplier.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
+//       (statusFilter === 'all' || supplier.status === statusFilter)
+//     );
+//     setFilteredSuppliers(filtered);
+//   }, [searchQuery, statusFilter, suppliers]);
 
-  const handleDelete = async (id) => {
-    try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'You will not be able to recover this sale!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      });
-
-      if (result.isConfirmed) {
-        await axios.get(`http://localhost:8070/api/sup/delsup/${id}`);
-        setSuppliers(suppliers.filter(supplier => supplier._id !== id));
-        Swal.fire('Deleted!', 'The sale has been deleted.', 'success');
-      }
-    } catch (error) {
-      console.error('Error deleting supplier:', error);
-      Swal.fire('Error', 'An error occurred while deleting the sale.', 'error');
-    }
-  };
 
   const generatePDF = () => {
     // Ensure filteredSuppliers is not empty
@@ -73,7 +52,7 @@ const SupplierList = () => {
       const doc = new jsPDF();
       let yPos = 20;
 
-    //   const logoImg = new Image();
+    // const logoImg = new Image();
     // logoImg.src = '../../assests/baby.jpg';
     // doc.addImage(logoImg, 'JPG', 10, 10, 50, 20)
   
@@ -105,31 +84,27 @@ const SupplierList = () => {
     }
   };
 
-  const sendEmailToSupplier = () => {
-    // Email.js configuration
-    const emailConfig = {
-      serviceID: 'service_fjpvjh9', // Email.js service ID
-      templateID: 'template_1x528d6', // Email.js template ID
-      userID: 'jm1C0XkEa3KYwvYK0', // Email.js user ID
-    };
+  const handleDelete = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this item!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      });
 
-    // Send email
-    emailjs.send(
-      emailConfig.serviceID,
-      emailConfig.templateID,
-      {
-        to_email: selectedSupplierEmail, // Supplier's email address
-        message: customMessage // Custom message
-      },
-      emailConfig.userID
-    ).then((response) => {
-      console.log('Email sent successfully:', response);
-      setShowModal(false); // Close the modal after sending the email
-      Swal.fire('Email Sent!', 'The email has been sent to the supplier.', 'success');
-    }).catch((error) => {
-      console.error('Error sending email:', error);
-      Swal.fire('Error', 'An error occurred while sending the email.', 'error');
-    });
+      if (result.isConfirmed) {
+        await axios.get(`http://localhost:8070/api/sup/delsup/${id}`);
+        setSuppliers(suppliers.filter(supplier => supplier._id !== id));
+        Swal.fire('Deleted!', 'The item has been deleted.', 'success');
+      }
+    } catch (error) {
+      console.error('Error deleting supplier:', error);
+      Swal.fire('Error', 'An error occurred while deleting the item.', 'error');
+    }
   };
 
   return (
@@ -137,7 +112,7 @@ const SupplierList = () => {
       <AdminSidebar />
       <div className="dashboard-content">
         <div className="itm-conte">
-          <h2>Supplier Management</h2>
+          <h2>Product Management</h2>
           <div>
             <input
               className="sup-search"
@@ -158,7 +133,7 @@ const SupplierList = () => {
               <option value="inactive">Inactive</option>
             </select>
             <br/>
-            <Link to="/addsup" className="add-supplier-btn">Add New Supplier</Link>
+            <Link to="/addproduct" className="add-supplier-btn">Add New Product</Link>
           </div>
           <table className='tabl'>
             <thead>
@@ -172,7 +147,7 @@ const SupplierList = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredSuppliers.map(supplier => (
+              {suppliers.map(supplier => (
                 <tr key={supplier._id}>
                   <td>{supplier.name}</td>
                   <td>{supplier.email}</td>
@@ -181,8 +156,7 @@ const SupplierList = () => {
                   <td>{supplier.product}</td>
                   <td>
                     <Link className='sup-update' to={`/upd/${supplier._id}`}>Update</Link> {/* Use Link for navigation */}
-                    <button className='sup-del' onClick={() => handleDelete(supplier._id)}>Delete</button>
-                    <button className='sup-email' onClick={() => { setShowModal(true); setSelectedSupplierEmail(supplier.email); }}>Send Email</button>
+                    <button className='sup-del' onClick={() => handleDelete(supplier._id)}>Delete</button>   
                   </td>
                 </tr>
               ))}
@@ -190,22 +164,8 @@ const SupplierList = () => {
           </table>
         </div>
       </div>
-      {/* Modal for sending email */}
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
-            <h2>Send Email</h2>
-            <label htmlFor="customMessage">Custom Message:</label><br/><br/>
-            <textarea id="customMessage" value={customMessage} onChange={(e) => setCustomMessage(e.target.value)} />
-            <br/>
-            <br/>
-            <button onClick={sendEmailToSupplier}>Send</button>
-          </div>
-        </div>
-      )}
     </div>
   );
-};
+}
 
-export default SupplierList;
+export default ProductList

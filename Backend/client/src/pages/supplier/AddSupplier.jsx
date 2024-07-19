@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { ref, uploadBytes } from "firebase/storage";
 
-import AdminSidebar from "../../components/salesManagement/AdminSidebar";
+import AdminSidebar from "../../components/salesManagement/Sidebar";
 import '../../styles/supplier/addsupp.css';
 
 import swal from 'sweetalert';

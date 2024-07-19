@@ -5,8 +5,8 @@
 
 .itm-conte {
  align-items: center;
- margin-left: auto;
-margin-right: auto;
+ margin-left: 60px;
+ margin-right: auto;
 }
 
 .itm-conte h2 {
@@ -32,11 +32,11 @@ margin-right: auto;
     margin-top: 20px;
 }
 
-.form-back {
+/* .form-back {
     background-color: beige;
     padding: 30px;
     border-radius: 20px;
-} 
+}  */
 
 .sup-search {
     width: 300px;
@@ -96,7 +96,7 @@ margin-right: auto;
     border-style: none;
 }
 
-table {
+.tabl {
     margin-top: 60px;
     border-collapse: collapse;
     width: 100%;
