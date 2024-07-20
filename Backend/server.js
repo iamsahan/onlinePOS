@@ -9,10 +9,6 @@ import supplierRoutes from "./routes/supplierRoute.js";
 
 import authRoutes from './routes/auth.js';
 
-import EmployeeRoute from './routes/EmployeeRoute.js';
-// import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js';
-// import Return_Route from './routes/Return_Route.js';
-// import Customer_Route from './routes/Customer_Route.js';
 
 import errorHandler from "./middleware/errorMiddleware.js";
 import posRoute from "./routes/posRoute.js";
@@ -32,12 +28,9 @@ app.use(bodyParser.json());
 // Routes middlewares
 app.use("/api/pos", posRoute);
 app.use('/api/sup', supplierRoutes);
-app.use('/employees', EmployeeRoute); // Mount employee-related routes
 app.use('/api/itm', itemRoute);
 app.use('/api/auth', authRoutes);
-//app.use('/EmployeeAttendence', employeeAttendanceRoute); // Mount employee attendance-related routes
-//app.use('/returns', Return_Route); // Mount return-related routes
-//app.use('/customers', Customer_Route);
+
 
 // Routes
 app.get("/", (req, res) => {
