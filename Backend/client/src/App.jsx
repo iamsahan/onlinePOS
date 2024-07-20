@@ -31,7 +31,12 @@ import CreateEmployeeAttendence from './assets/pages/EmployeeAttendence/CreateEm
 import EditEmployeeAttendence from './assets/pages/EmployeeAttendence/EditEmployeeAttendence';
 import DeleteEmployeeAttendence from './assets/pages/EmployeeAttendence/DeleteEmployeeAttendence';
 import ReportEmployeeAttendence from './assets/pages/EmployeeAttendence/ReportEmployeeAttendence';
-import Login from './assets/pages/Login';
+import Loginn from './assets/pages/Login';
+
+import Home from './pages/landing/Homepage';
+import Login from './pages/landing/Login';
+import Signup from './pages/landing/Signup';
+
 
 import Header from './assets/pages/Return/Header';
 
@@ -61,6 +66,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
+
         <Route path='/cashier' element={<Cashier />}></Route>
         <Route path='/sales' element={<SalesList />}></Route>
         <Route path='/update/:id' element={<UpdateSale />}></Route>
@@ -75,7 +84,7 @@ const App = () => {
         <Route path='/employees/edit/:id' element={<EditEmployee />}></Route>
         <Route path='/employees/details/:id' element={<ReadOneEmployee />}></Route>
         <Route path='/employees/reportEmployee' element={<ReportEmployee />}></Route>
-        <Route path='/login' element={<Login />}></Route>
+        <Route path='/loginn' element={<Loginn />}></Route>
 
         <Route path='/EmployeeAttendence/allEmployeeAttendence' element={<ShowEmployeeAttendence />}></Route>
         <Route path='/EmployeeAttendence/create' element={<CreateEmployeeAttendence />}></Route>
