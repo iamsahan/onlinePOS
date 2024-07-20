@@ -1,5 +1,6 @@
 import Item from "./../models/itemModel";
 import catchAsync from "./../utils/catchAsync";
+import { createDatabaseForUser } from "../utils/database"
 
 export const getAllItems = catchAsync(async (req, res, next) => {
 
@@ -28,6 +29,19 @@ export const getItem = catchAsync(async (req, res, next) => {
 });
 
 export const createItem = catchAsync(async (req, res, next) => {
+  const { user } = req;
+
+  // Initialize the user's database connection
+  const { Item } = await createDatabaseForUser(user._id);
+
+  if (!Item) {
+    return res.status(500).json({
+      status: "fail",
+      message: "Item model could not be initialized."
+    });
+  }
+
+  // Create a new item in the user's database
   const newItem = await Item.create(req.body);
 
   res.status(201).json({

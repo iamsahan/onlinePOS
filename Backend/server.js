@@ -4,10 +4,10 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import userRoute from "./routes/userRoute.js";
-import categoryRoute from "./routes/categoryRoute.js";
 import itemRoute from "./routes/itemRoute.js";
 import supplierRoutes from "./routes/supplierRoute.js";
+
+import authRoutes from './routes/auth.js';
 
 import EmployeeRoute from './routes/EmployeeRoute.js';
 // import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js';
@@ -34,6 +34,7 @@ app.use("/api/pos", posRoute);
 app.use('/api/sup', supplierRoutes);
 app.use('/employees', EmployeeRoute); // Mount employee-related routes
 app.use('/api/itm', itemRoute);
+app.use('/api/auth', authRoutes);
 //app.use('/EmployeeAttendence', employeeAttendanceRoute); // Mount employee attendance-related routes
 //app.use('/returns', Return_Route); // Mount return-related routes
 //app.use('/customers', Customer_Route);
@@ -46,8 +47,15 @@ app.get("/", (req, res) => {
 // Error middleware
 app.use(errorHandler);
 
+const mongoUri = 'mongodb+srv://iamsahan:sew123@inventory.axqereu.mongodb.net';
+
+const mainDbUri = `${mongoUri}/main_db?retryWrites=true&w=majority`;
+
 // Connect to DB and start server
-mongoose.connect("mongodb+srv://iamsahan:sew123@inventory.axqereu.mongodb.net/inventory?retryWrites=true&w=majority&appName=inventory")
+mongoose.connect(mainDbUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => {
     console.log("DB Connection Successful!");
     app.listen(PORT, () => {

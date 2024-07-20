@@ -74,6 +74,10 @@ itemSchema.pre("save", function (next) {
   next();
 });
 
-const Item = mongoose.model("Item", itemSchema);
+const createItemModel = (connection) => {
+  return connection.model('Item', itemSchema);
+};
 
-export default Item;
+// const Item = mongoose.model("Item", itemSchema);
+
+export default createItemModel;
