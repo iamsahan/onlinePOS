@@ -45,10 +45,7 @@ const mongoUri = 'mongodb+srv://iamsahan:sew123@inventory.axqereu.mongodb.net';
 const mainDbUri = `${mongoUri}/main_db?retryWrites=true&w=majority`;
 
 // Connect to DB and start server
-mongoose.connect(mainDbUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(mainDbUri)
   .then(() => {
     console.log("DB Connection Successful!");
     app.listen(PORT, () => {

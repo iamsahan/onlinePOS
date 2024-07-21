@@ -24,11 +24,14 @@ const AddProduct = () => {
     })
 
     const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-
+    const token = localStorage.getItem('token');
     const handleSubmit = async e => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8070/api/itm/additem', formData);
+            const res = await axios.post('http://localhost:8070/api/itm/additem', formData, {
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                }});
             console.log(formData);
             swal("Good job!", "Supplier Added Successfully!", "success");
             console.log(res);

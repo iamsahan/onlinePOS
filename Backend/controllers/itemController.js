@@ -3,6 +3,8 @@ import catchAsync from "./../utils/catchAsync";
 import { createDatabaseForUser } from "../utils/database"
 
 export const getAllItems = catchAsync(async (req, res, next) => {
+  const { user } = req;
+  const { Item } = await createDatabaseForUser(user._id);
 
   try {
     const items = await Item.find();

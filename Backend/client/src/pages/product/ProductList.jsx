@@ -14,13 +14,19 @@ const ProductList = () => {
   const [filteredSuppliers, setFilteredSuppliers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+
+  const token = localStorage.getItem('token');
   
 
 
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/api/itm/allitem');
+        const response = await axios.get('http://localhost:8070/api/itm/allitem', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
         setSuppliers(response.data.data);
         console.log(suppliers);
       } catch (error) {
