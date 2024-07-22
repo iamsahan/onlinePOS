@@ -5,9 +5,7 @@ import img2 from "../../assets/b2.jpeg"
 import img3 from "../../assets/1.jpeg"
 import img4 from "../../assets/2.jpeg"
 import img5 from "../../assets/3.jpeg"
-import img6 from "../../assets/4.jpeg"
-import img7 from "../../assets/5.jpeg"
-import img8 from "../../assets/6.jpeg"
+
 
 export const cardData = [
     {
