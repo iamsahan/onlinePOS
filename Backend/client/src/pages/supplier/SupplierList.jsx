@@ -52,7 +52,7 @@ const SupplierList = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.get(`http://localhost:8070/api/sup/delsup/${id}`);
+        await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/api/sup/delsup/${id}`);
         setSuppliers(suppliers.filter(supplier => supplier._id !== id));
         Swal.fire('Deleted!', 'The sale has been deleted.', 'success');
       }

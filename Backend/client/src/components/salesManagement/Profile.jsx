@@ -66,7 +66,7 @@ const Profile = ({ selectedItems, removeItemFromProfile, subtotal }) => {
   const placeOrder = async () => {
     console.log(orderData)
     try {
-      const response = await axios.post('http://localhost:8070/api/pos/add', orderData);
+      const response = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/api/pos/add`, orderData);
       console.log(response.data); 
       swal("Good job!", "Sales Created Successfully!", "success");// Handle success response
       

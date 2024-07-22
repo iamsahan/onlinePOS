@@ -62,7 +62,7 @@ const AddSupplier = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8070/api/sup/addsupplier', formData);
+      const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}api/sup/addsupplier`, formData);
       console.log(res.data);
       swal("Good job!", "Supplier Added Successfully!", "success");
       navigate('/suplist');

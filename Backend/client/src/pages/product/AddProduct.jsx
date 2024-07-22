@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Sidebar from '../../components/salesManagement/Sidebar';
 import "../../styles/product/addproduct.css";
 import axios from 'axios';
@@ -28,7 +28,7 @@ const AddProduct = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8070/api/itm/additem', formData, {
+            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/api/itm/additem`, formData, {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                 }});

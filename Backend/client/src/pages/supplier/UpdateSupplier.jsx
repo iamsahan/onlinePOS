@@ -24,7 +24,7 @@ const SupplierUpdatePage = () => {
   useEffect(() => {
     const fetchSupplier = async () => {
         try {
-            const response = await axios.get(`http://localhost:8070/api/sup/getsup/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/api/sup/getsup/${id}`);
             if (response.data.success) {
               console.log('Fetched supplier data:', response.data.data); // Log fetched data
               setFormData(response.data.data); // Update formData state

@@ -22,7 +22,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/api/itm/allitem', {
+        const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/api/itm/allitem`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
